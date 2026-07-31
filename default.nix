@@ -34,4 +34,7 @@ rec {
       s6-overlay-helpers
       ;
   };
+
+  # Set the default package to s6-overlay-container-layered
+  default = s6-overlay-container-layered;
 }
