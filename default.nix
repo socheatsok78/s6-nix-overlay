@@ -1,19 +1,20 @@
 {
   pkgs ? import <nixpkgs> { },
 }:
-rec {
+let
   s6-overlay-version = import ./version.nix;
+in rec {
 
-  bearssl = pkgs.bearssl.override {};
-  execline = pkgs.execline.override {};
-  s6 = pkgs.s6.override {};
-  s6-dns = pkgs.s6-dns.override {};
-  s6-linux-init = pkgs.s6-linux-init.override {};
-  s6-linux-utils = pkgs.s6-linux-utils.override {};
-  s6-networking = pkgs.s6-networking.override {};
-  s6-portable-utils = pkgs.s6-portable-utils.override {};
-  s6-rc = pkgs.s6-rc.override {};
-  skalibs = pkgs.skalibs.override {};
+  bearssl = pkgs.bearssl.overrideAttrs {};
+  execline = pkgs.execline.overrideAttrs {};
+  s6 = pkgs.s6.overrideAttrs {};
+  s6-dns = pkgs.s6-dns.overrideAttrs {};
+  s6-linux-init = pkgs.s6-linux-init.overrideAttrs {};
+  s6-linux-utils = pkgs.s6-linux-utils.overrideAttrs {};
+  s6-networking = pkgs.s6-networking.overrideAttrs {};
+  s6-portable-utils = pkgs.s6-portable-utils.overrideAttrs {};
+  s6-rc = pkgs.s6-rc.overrideAttrs {};
+  skalibs = pkgs.skalibs.overrideAttrs {};
 
   s6-overlay-helpers = pkgs.callPackage ./pkgs/s6-overlay-helpers.nix { };
 
