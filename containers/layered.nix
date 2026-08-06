@@ -24,7 +24,7 @@ dockerTools.buildLayeredImage {
   '';
 
   # sutuid bit for s6-overlay-suexec
-  enableFakechroot = stdenv.isLinux;
+  enableFakechroot = false;
   fakeRootCommands = ''
     mkdir -p ./command
     cp ${s6-overlay-helpers}/bin/s6-overlay-suexec ./command/s6-overlay-suexec
