@@ -17,7 +17,6 @@ dockerTools.buildLayeredImage {
   };
 
   extraCommands = ''
-    # gets rid of a pesky warning
     rm -rf var run
     mkdir -p var run
     ln -s /run var/run
