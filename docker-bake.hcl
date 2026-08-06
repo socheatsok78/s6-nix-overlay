@@ -17,12 +17,12 @@ target "github-metadata-action" {}
 
 group "default" {
   targets = [
-    "s6-overlay",
-    "s6-overlay-layered",
+    "s6-overlay-image",
+    "s6-overlay-image-layered",
   ]
 }
 
-target "s6-overlay" {
+target "s6-overlay-image" {
   context = "."
   dockerfile = "flake.nix"
   target = "s6-overlay-image"
@@ -36,7 +36,7 @@ target "s6-overlay" {
   ]
 }
 
-target "s6-overlay-layered" {
+target "s6-overlay-image-layered" {
   context = "."
   dockerfile = "flake.nix"
   target = "s6-overlay-image-layered"
