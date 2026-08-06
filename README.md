@@ -38,10 +38,13 @@ There are two type of container images that can be built from this overlay:
 This project uses the [buildkit-nix/nixfile-frontend] to build the container images. You can build the images using the following command:
 
 ```sh
-docker buildx build -f flake.nix --target <target> https://github.com/socheatsok78/s6-nix-overlay.git
+docker buildx bake https://github.com/socheatsok78/s6-nix-overlay.git <target>
 ```
 
-Where `<target>` is either `s6-overlay-image` or `s6-overlay-image-layered`.
+Where `<target>` is either `s6-overlay-image` or `s6-overlay-image-layered`. 
+
+By default, the images will be built for both the `linux/amd64` and `linux/arm64` platforms. You can build for your local platform only by specifying the `--set="*.platform="` option.
+
 
 ## License
 This project is licensed under the Apache License 2.0 - see the [LICENSE] file for details.

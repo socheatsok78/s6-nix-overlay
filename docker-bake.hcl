@@ -6,10 +6,7 @@ variable "GITHUB_REPOSITORY_OWNER" {
 }
 
 variable "S6_OVERLAY_VERSION" {
-    validation {
-      condition = S6_OVERLAY_VERSION != ""
-      error_message = "S6_OVERLAY_VERSION must be set"
-    }
+    default = "dev"
 }
 
 target "docker-metadata-action" {}
