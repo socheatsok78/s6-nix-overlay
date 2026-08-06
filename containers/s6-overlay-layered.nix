@@ -1,4 +1,3 @@
-# An example of how to use the s6-overlay package
 {
   stdenv,
   dockerTools,
