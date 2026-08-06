@@ -12,7 +12,7 @@ let
     };
 in
 rec {
-
+  # core packages
   bearssl = pkgs.bearssl.overrideAttrs (final: prev: { });
   execline = pkgs.execline.overrideAttrs (
     final: prev: {
@@ -87,12 +87,11 @@ rec {
     }
   );
 
+  # s6-overlay packages
   s6-overlay-helpers = pkgs.callPackage ./pkgs/s6-overlay-helpers.nix { };
-
   s6-overlay-noarch = pkgs.callPackage ./pkgs/s6-overlay-noarch.nix {
     inherit s6-overlay-version;
   };
-
   s6-overlay = pkgs.callPackage ./pkgs/s6-overlay.nix {
     inherit
       s6-overlay-version
@@ -113,6 +112,7 @@ rec {
     s6-overlay-helpers = s6-overlay-helpers.override { withNsss = true; };
   };
 
+  # container images
   s6-overlay-image = pkgs.callPackage ./containers/s6-overlay.nix {
     inherit
       s6-overlay
@@ -120,7 +120,6 @@ rec {
       s6-overlay-version
       ;
   };
-
   s6-overlay-image-layered = pkgs.callPackage ./containers/s6-overlay-layered.nix {
     inherit
       s6-overlay
