@@ -3,27 +3,40 @@
 {
   lib,
   symlinkJoin,
+  
   s6-overlay-version,
   s6-overlay-noarch,
   s6-overlay-helpers,
-  s6,
-  s6-rc,
-  s6-linux-init,
-  s6-portable-utils,
+  
+  bearssl,
   execline,
+  s6-dns,
+  s6-linux-init,
+  s6-linux-utils,
+  s6-networking,
+  s6-portable-utils,
+  s6-rc,
+  s6,
+  skalibs,
 }:
 symlinkJoin {
   pname = "s6-overlay";
   version = s6-overlay-version;
 
   paths = [
-    s6
-    s6-rc
-    s6-linux-init
-    s6-portable-utils
-    execline
     s6-overlay-noarch
     s6-overlay-helpers
+
+    bearssl
+    execline
+    s6
+    s6-dns
+    s6-linux-init
+    s6-linux-utils
+    s6-networking
+    s6-portable-utils
+    s6-rc
+    skalibs
   ];
 
   meta = {

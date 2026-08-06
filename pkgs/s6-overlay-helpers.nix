@@ -1,9 +1,9 @@
 {
   lib,
   stdenv,
+  fetchFromGitHub,
   execline,
   skalibs,
-  fetchFromGitHub,
   nsss,
   withNsss ? false,
 }:
