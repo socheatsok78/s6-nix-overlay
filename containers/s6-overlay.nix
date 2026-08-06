@@ -1,17 +1,31 @@
 # An example of how to use the s6-overlay package
 {
-  stdenv,
   dockerTools,
   buildEnv,
   s6-overlay,
   s6-overlay-helpers,
   s6-overlay-version,
 }:
-dockerTools.buildLayeredImage {
-  name = "docker-image-s6-overlay-layered";
+dockerTools.buildImage {
+  name = "s6-overlay-${s6-overlay-version}";
   tag = s6-overlay-version;
 
-  contents = [ s6-overlay ];
+  copyToRoot = buildEnv {
+    name = "s6-overlay-env";
+    paths = [
+      s6-overlay
+    ];
+    pathsToLink = [
+      "/bin"
+      "/sbin"
+      "/command"
+      "/etc"
+      "/lib"
+      "/libexec"
+      "/package"
+      "/"
+    ];
+  };
   config = {
     Entrypoint = [ "/init" ];
   };
@@ -24,8 +38,7 @@ dockerTools.buildLayeredImage {
   '';
 
   # sutuid bit for s6-overlay-suexec
-  enableFakechroot = false;
-  fakeRootCommands = ''
+  runAsRoot = ''
     mkdir -p ./command
     cp ${s6-overlay-helpers}/bin/s6-overlay-suexec ./command/s6-overlay-suexec
     chmod 4755 ./command/s6-overlay-suexec
