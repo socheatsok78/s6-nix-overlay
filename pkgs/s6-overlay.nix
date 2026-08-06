@@ -3,11 +3,11 @@
 {
   lib,
   symlinkJoin,
-  
+
   s6-overlay-version,
   s6-overlay-noarch,
   s6-overlay-helpers,
-  
+
   bearssl,
   execline,
   s6-dns,
