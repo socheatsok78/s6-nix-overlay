@@ -1,6 +1,6 @@
 # syntax=socheatsok78/nixfile-frontend:experimental
 {
-  description = "Nix tools and packages for the s6-overlay";
+  description = "An experimental s6-overlay image built on top of Nix";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
