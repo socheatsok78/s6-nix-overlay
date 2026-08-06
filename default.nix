@@ -88,7 +88,9 @@ rec {
   );
 
   # s6-overlay packages
-  s6-overlay-helpers = pkgs.callPackage ./pkgs/s6-overlay-helpers.nix { };
+  s6-overlay-helpers = pkgs.callPackage ./pkgs/s6-overlay-helpers.nix {
+    inherit execline skalibs;
+  };
   s6-overlay-noarch = pkgs.callPackage ./pkgs/s6-overlay-noarch.nix {
     inherit s6-overlay-version;
   };
