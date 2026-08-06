@@ -1,4 +1,4 @@
-# syntax=ghcr.io/socheatsok78/buildkit-nix:experimental
+# syntax=socheatsok78/nixfile-frontend:experimental
 {
   description = "Nix tools and packages for the s6-overlay";
 

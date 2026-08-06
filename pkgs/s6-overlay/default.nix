@@ -3,13 +3,13 @@
 {
   lib,
   symlinkJoin,
-  s6-overlay-noarch,
+  s6-overlay-version,
   s6-overlay-helpers,
+  s6-overlay-noarch,
   s6,
   s6-rc,
   s6-linux-init,
   s6-portable-utils,
-  s6-overlay-version,
   execline,
 }:
 symlinkJoin {
