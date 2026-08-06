@@ -26,6 +26,10 @@ target "s6-overlay-image" {
   context = "."
   dockerfile = "flake.nix"
   target = "s6-overlay-image"
+  entitlements = [ "security.insecure" ]
+  args = {
+    security = "insecure"
+  }
   platforms = [
     "linux/amd64",
     "linux/arm64",
