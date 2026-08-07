@@ -123,7 +123,7 @@ rec {
     s6-overlay-helpers = s6-overlay-helpers.override { withNsss = true; };
   };
 
-  # container images
+  # s6-overlay images
   s6-overlay-image = lib.s6-overlay-tools.buildImage {
     name = "s6-overlay-image";
     tag = s6-overlay-version;
@@ -131,5 +131,27 @@ rec {
   s6-overlay-image-layered = lib.s6-overlay-tools.buildLayeredImage {
     name = "s6-overlay-image-layered";
     tag = s6-overlay-version;
+  };
+
+  # example images
+  hello-image = lib.s6-overlay-tools.buildImage {
+    name = "hello-image";
+    tag = "dev";
+    paths = [ pkgs.hello ];
+    config = {
+      Cmd = [
+        "${pkgs.lib.getExe pkgs.hello}"
+      ];
+    };
+  };
+  hello-image-layered = lib.s6-overlay-tools.buildLayeredImage {
+    name = "hello-image-layered";
+    tag = "dev";
+    contents = [ pkgs.hello ];
+    config = {
+      Cmd = [
+        "${pkgs.lib.getExe pkgs.hello}"
+      ];
+    };
   };
 }
