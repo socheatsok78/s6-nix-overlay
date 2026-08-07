@@ -21,6 +21,9 @@ rec {
       ;
   }; # functions
 
+  # The `dockerTools` name is special
+  dockerTools = lib.dockerTools;
+
   # core packages
   bearssl = pkgs.bearssl.overrideAttrs (final: prev: { });
   execline = pkgs.execline.overrideAttrs (
@@ -124,17 +127,17 @@ rec {
   };
 
   # s6-overlay images
-  s6-overlay-image = lib.dockerTools.buildImage {
+  s6-overlay-image = dockerTools.buildImage {
     name = "s6-overlay-image";
     tag = s6-overlay-version;
   };
-  s6-overlay-image-layered = lib.dockerTools.buildLayeredImage {
+  s6-overlay-image-layered = dockerTools.buildLayeredImage {
     name = "s6-overlay-image-layered";
     tag = s6-overlay-version;
   };
 
   # example images
-  hello-image = lib.dockerTools.buildImage {
+  hello-image = dockerTools.buildImage {
     name = "hello-image";
     tag = "dev";
     paths = [ pkgs.hello ];
@@ -144,7 +147,7 @@ rec {
       ];
     };
   };
-  hello-image-layered = lib.dockerTools.buildLayeredImage {
+  hello-image-layered = dockerTools.buildLayeredImage {
     name = "hello-image-layered";
     tag = "dev";
     contents = [ pkgs.hello ];
