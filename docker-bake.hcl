@@ -32,8 +32,8 @@ target "s6-overlay-image" {
     "linux/arm64",
   ]
   tags = [
-    "${GITHUB_REPOSITORY_OWNER}/s6-overlay:${S6_OVERLAY_VERSION}",
-    "ghcr.io/${GITHUB_REPOSITORY_OWNER}/s6-overlay:${S6_OVERLAY_VERSION}",
+    "${GITHUB_REPOSITORY_OWNER}/s6-nix-overlay:${S6_OVERLAY_VERSION}",
+    "ghcr.io/${GITHUB_REPOSITORY_OWNER}/s6-nix-overlay:${S6_OVERLAY_VERSION}",
   ]
 }
 
@@ -50,7 +50,7 @@ target "s6-overlay-image-layered" {
     "linux/arm64",
   ]
   tags = [
-    "${GITHUB_REPOSITORY_OWNER}/s6-overlay-layered:${S6_OVERLAY_VERSION}",
-    "ghcr.io/${GITHUB_REPOSITORY_OWNER}/s6-overlay-layered:${S6_OVERLAY_VERSION}",
+    "${GITHUB_REPOSITORY_OWNER}/s6-nix-overlay:${S6_OVERLAY_VERSION}-layered",
+    "ghcr.io/${GITHUB_REPOSITORY_OWNER}/s6-nix-overlay:${S6_OVERLAY_VERSION}-layered",
   ]
 }
