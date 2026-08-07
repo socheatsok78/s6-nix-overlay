@@ -35,13 +35,19 @@ There are two type of container images that can be built from this overlay:
 
 ## Building the image
 
-This project uses the [buildkit-nix/nixfile-frontend] to build the container images. You can build the images using the following command:
+This project uses the [buildkit-nix/nixfile-frontend] to build the container images.
 
+First create a buildx builder with the following command:
 ```sh
-docker buildx bake https://github.com/socheatsok78/s6-nix-overlay.git <target>
+docker buildx create --name "nix-builder" --driver docker-container --driver-opt "network=host" --buildkitd-flags "--allow-insecure-entitlement security.insecure --allow-insecure-entitlement network.host"
 ```
 
-Where `<target>` is either `s6-overlay-image` or `s6-overlay-image-layered`. 
+Then build the image using the following command:
+```sh
+docker buildx --builder "nix-builder" bake https://github.com/socheatsok78/s6-nix-overlay.git <target>
+```
+
+Where `<target>` is either `s6-overlay-image` or `s6-overlay-image-layered`.
 
 By default, the images will be built for both the `linux/amd64` and `linux/arm64` platforms. You can build for your local platform only by specifying the `--set="*.platform="` option.
 
