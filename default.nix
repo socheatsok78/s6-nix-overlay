@@ -97,13 +97,13 @@ rec {
   );
 
   # s6-overlay packages
-  s6-overlay-helpers = pkgs.callPackage ./pkgs/s6-overlay-helpers.nix {
+  s6-overlay-helpers = pkgs.callPackage ./pkgs/s6-overlay-helpers {
     inherit execline skalibs;
   };
-  s6-overlay-noarch = pkgs.callPackage ./pkgs/s6-overlay-noarch.nix {
+  s6-overlay-noarch = pkgs.callPackage ./pkgs/s6-overlay-noarch {
     inherit s6-overlay-version;
   };
-  s6-overlay = pkgs.callPackage ./pkgs/s6-overlay.nix {
+  s6-overlay = pkgs.callPackage ./pkgs/s6-overlay {
     inherit
       s6-overlay-version
       s6-overlay-noarch
@@ -124,17 +124,17 @@ rec {
   };
 
   # s6-overlay images
-  s6-overlay-image = lib.s6-overlay-tools.buildImage {
+  s6-overlay-image = lib.dockerTools.buildImage {
     name = "s6-overlay-image";
     tag = s6-overlay-version;
   };
-  s6-overlay-image-layered = lib.s6-overlay-tools.buildLayeredImage {
+  s6-overlay-image-layered = lib.dockerTools.buildLayeredImage {
     name = "s6-overlay-image-layered";
     tag = s6-overlay-version;
   };
 
   # example images
-  hello-image = lib.s6-overlay-tools.buildImage {
+  hello-image = lib.dockerTools.buildImage {
     name = "hello-image";
     tag = "dev";
     paths = [ pkgs.hello ];
@@ -144,7 +144,7 @@ rec {
       ];
     };
   };
-  hello-image-layered = lib.s6-overlay-tools.buildLayeredImage {
+  hello-image-layered = lib.dockerTools.buildLayeredImage {
     name = "hello-image-layered";
     tag = "dev";
     contents = [ pkgs.hello ];
