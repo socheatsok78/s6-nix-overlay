@@ -12,6 +12,9 @@ let
     };
 in
 rec {
+  # The `lib`, `modules`, and `overlays` names are special
+  lib = import ./lib { inherit pkgs; }; # functions
+
   # core packages
   bearssl = pkgs.bearssl.overrideAttrs (final: prev: { });
   execline = pkgs.execline.overrideAttrs (
