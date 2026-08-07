@@ -3,17 +3,21 @@
   buildEnv,
   s6-overlay,
   s6-overlay-helpers,
-  s6-overlay-version,
+
+  name,
+  tag,
+  paths ? [ ],
+  config ? { },
 }:
 dockerTools.buildImage {
-  name = "s6-overlay-${s6-overlay-version}";
-  tag = s6-overlay-version;
+  inherit name tag;
 
   copyToRoot = buildEnv {
     name = "s6-overlay-env";
     paths = [
       s6-overlay
-    ];
+    ]
+    ++ paths;
     pathsToLink = [
       "/bin"
       "/sbin"
@@ -27,7 +31,8 @@ dockerTools.buildImage {
   };
   config = {
     Entrypoint = [ "/init" ];
-  };
+  }
+  // config;
 
   extraCommands = ''
     rm -rf var run

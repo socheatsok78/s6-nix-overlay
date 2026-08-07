@@ -13,7 +13,13 @@ let
 in
 rec {
   # The `lib`, `modules`, and `overlays` names are special
-  lib = import ./lib { inherit pkgs; }; # functions
+  lib = import ./lib {
+    inherit
+      pkgs
+      s6-overlay
+      s6-overlay-helpers
+      ;
+  }; # functions
 
   # core packages
   bearssl = pkgs.bearssl.overrideAttrs (final: prev: { });
@@ -118,20 +124,12 @@ rec {
   };
 
   # container images
-  s6-overlay-image = pkgs.callPackage ./containers/s6-overlay.nix {
-    inherit
-      s6-overlay
-      s6-overlay-version
-      ;
-
-    s6-overlay-helpers = s6-overlay-helpers.override { withNsss = true; };
+  s6-overlay-image = lib.s6-overlay-tools.buildImage {
+    name = "s6-overlay-image";
+    tag = s6-overlay-version;
   };
-  s6-overlay-image-layered = pkgs.callPackage ./containers/s6-overlay-layered.nix {
-    inherit
-      s6-overlay
-      s6-overlay-version
-      ;
-
-    s6-overlay-helpers = s6-overlay-helpers.override { withNsss = true; };
+  s6-overlay-image-layered = lib.s6-overlay-tools.buildLayeredImage {
+    name = "s6-overlay-image-layered";
+    tag = s6-overlay-version;
   };
 }

@@ -1,19 +1,23 @@
 {
   stdenv,
   dockerTools,
-  buildEnv,
   s6-overlay,
   s6-overlay-helpers,
-  s6-overlay-version,
+
+  name,
+  tag,
+  contents ? [ ],
+  config ? { },
 }:
 dockerTools.buildLayeredImage {
-  name = "docker-image-s6-overlay-layered-${s6-overlay-version}";
-  tag = s6-overlay-version;
+  inherit tag;
+  name = "docker-image-${name}";
 
-  contents = [ s6-overlay ];
+  contents = [ s6-overlay ] ++ contents;
   config = {
     Entrypoint = [ "/init" ];
-  };
+  }
+  // config;
 
   extraCommands = ''
     rm -rf var run
