@@ -118,15 +118,17 @@ rec {
   s6-overlay-image = pkgs.callPackage ./containers/s6-overlay.nix {
     inherit
       s6-overlay
-      s6-overlay-helpers
       s6-overlay-version
       ;
+
+    s6-overlay-helpers = s6-overlay-helpers.override { withNsss = true; };
   };
   s6-overlay-image-layered = pkgs.callPackage ./containers/s6-overlay-layered.nix {
     inherit
       s6-overlay
-      s6-overlay-helpers
       s6-overlay-version
       ;
+
+    s6-overlay-helpers = s6-overlay-helpers.override { withNsss = true; };
   };
 }
