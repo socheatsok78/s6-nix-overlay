@@ -47,7 +47,7 @@ By default, the images will be built for both the `linux/amd64` and `linux/arm64
 
 
 ## License
-This project is licensed under the Apache License 2.0 - see the [LICENSE] file for details.
+This project is licensed under the ISC License- see the [LICENSE] file for details.
 
 [Nix]: https://nixos.org/
 [buildkit-nix/nixfile-frontend]: https://github.com/socheatsok78/buildkit-nix
