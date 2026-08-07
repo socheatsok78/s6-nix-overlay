@@ -39,6 +39,8 @@ This project uses the [buildkit-nix/nixfile-frontend] to build the container ima
 
 First create a buildx builder with the following command:
 ```sh
+# Due to the way Nix builds packages, we need to allow "security.insecure" entitlements.
+# This ensures that Nix can access some of the system features that are required for building packages.
 docker buildx create --name "nix-builder" --driver docker-container --driver-opt "network=host" --buildkitd-flags "--allow-insecure-entitlement security.insecure --allow-insecure-entitlement network.host"
 ```
 
