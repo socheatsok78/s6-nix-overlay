@@ -13,7 +13,12 @@ dockerTools.buildLayeredImage {
   inherit tag;
   name = "docker-image-${name}";
 
-  contents = [ s6-overlay ] ++ contents;
+  contents = [
+    dockerTools.binSh
+    dockerTools.usrBinEnv
+    dockerTools.caCertificates
+    s6-overlay
+  ] ++ contents;
   config = {
     Entrypoint = [ "/init" ];
   }

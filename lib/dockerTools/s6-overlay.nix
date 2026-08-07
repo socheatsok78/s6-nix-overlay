@@ -15,6 +15,9 @@ dockerTools.buildImage {
   copyToRoot = buildEnv {
     name = "s6-overlay-env";
     paths = [
+      dockerTools.binSh
+      dockerTools.usrBinEnv
+      dockerTools.caCertificates
       s6-overlay
     ]
     ++ paths;
