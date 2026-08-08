@@ -14,9 +14,6 @@ dockerTools.buildLayeredImage {
   name = "docker-image-${name}";
 
   contents = [
-    dockerTools.binSh
-    dockerTools.usrBinEnv
-    dockerTools.caCertificates
     s6-overlay
   ] ++ contents;
   config = {
