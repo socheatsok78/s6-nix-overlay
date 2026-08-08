@@ -19,14 +19,22 @@ group "default" {
   ]
 }
 
-target "s6-overlay-image" {
-  context = "."
-  dockerfile = "flake.nix"
-  target = "s6-overlay-image"
+target "entitlements" {
   entitlements = [ "security.insecure" ]
   args = {
     security = "insecure"
   }
+}
+
+target "s6-overlay-image" {
+  inherits = [
+    "entitlements",
+    "docker-metadata-action",
+    "github-metadata-action",
+  ]
+  context = "."
+  dockerfile = "flake.nix"
+  target = "s6-overlay-image"
   platforms = [
     "linux/amd64",
     "linux/arm64",
@@ -38,13 +46,14 @@ target "s6-overlay-image" {
 }
 
 target "s6-overlay-image-layered" {
+  inherits = [
+    "entitlements",
+    "docker-metadata-action",
+    "github-metadata-action",
+  ]
   context = "."
   dockerfile = "flake.nix"
   target = "s6-overlay-image-layered"
-  entitlements = [ "security.insecure" ]
-  args = {
-    security = "insecure"
-  }
   platforms = [
     "linux/amd64",
     "linux/arm64",
@@ -52,5 +61,33 @@ target "s6-overlay-image-layered" {
   tags = [
     "${GITHUB_REPOSITORY_OWNER}/s6-nix-overlay:${S6_OVERLAY_VERSION}-layered",
     "ghcr.io/${GITHUB_REPOSITORY_OWNER}/s6-nix-overlay:${S6_OVERLAY_VERSION}-layered",
+  ]
+}
+
+
+// example of how to use s6-overlay-layered in a docker image
+target "hello-image" {
+  inherits = [
+    "entitlements",
+    "docker-metadata-action",
+    "github-metadata-action",
+  ]
+  dockerfile = "flake.nix"
+  target = "hello-image"
+  tags = [
+    "hello-image:dev"
+  ]
+}
+
+target "hello-image-layered" {
+  inherits = [
+    "entitlements",
+    "docker-metadata-action",
+    "github-metadata-action",
+  ]
+  dockerfile = "flake.nix"
+  target = "hello-image-layered"
+  tags = [
+    "hello-image-layered:dev"
   ]
 }

@@ -85,24 +85,14 @@ rec {
   };
 
   # example images
-  hello-image = dockerTools.buildImage {
-    name = "hello-image";
-    tag = "dev";
-    paths = [ pkgs.hello ];
-    config = {
-      Cmd = [
-        "${pkgs.lib.getExe pkgs.hello}"
-      ];
-    };
+  hello-image = pkgs.callPackage ./examples/hello-image {
+    inherit execline dockerTools;
+    mkLongrunService = lib.mkLongrunService;
+    mkOneshotService = lib.mkOneshotService;
   };
-  hello-image-layered = dockerTools.buildLayeredImage {
-    name = "hello-image-layered";
-    tag = "dev";
-    contents = [ pkgs.hello ];
-    config = {
-      Cmd = [
-        "${pkgs.lib.getExe pkgs.hello}"
-      ];
-    };
+  hello-image-layered = pkgs.callPackage ./examples/hello-image-layered {
+    inherit execline dockerTools;
+    mkLongrunService = lib.mkLongrunService;
+    mkOneshotService = lib.mkOneshotService;
   };
 }
