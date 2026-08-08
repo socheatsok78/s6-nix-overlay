@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = {
-    description = "Helpers for s6-overlay";
+    description = "Small binary utilities, specific to s6-overlay";
     homepage = "https://github.com/just-containers/s6-overlay-helpers/";
     license = lib.licenses.isc;
     platforms = lib.platforms.linux;
