@@ -3,13 +3,6 @@
 }:
 let
   s6-overlay-version = import ./version.nix;
-
-  fetchSkarnetUrl =
-    pname: version: sha256:
-    pkgs.fetchurl {
-      url = "https://skarnet.org/software/${pname}/${pname}-${version}.tar.gz";
-      inherit sha256;
-    };
 in
 rec {
   # The `lib`, `modules`, and `overlays` names are special
@@ -26,78 +19,33 @@ rec {
 
   # core packages
   bearssl = pkgs.bearssl.overrideAttrs (final: prev: { });
-  execline = pkgs.execline.overrideAttrs (
-    final: prev: {
-      version = "2.9.9.2";
-      src =
-        fetchSkarnetUrl prev.pname final.version
-          "sha256-kI7U2zprOiOiBdj9TPKnEIkVbyrq4PVGVgRar60t7jI=";
-    }
-  );
-  s6 = pkgs.s6.overrideAttrs (
-    final: prev: {
-      version = "2.15.1.0";
-      src =
-        fetchSkarnetUrl prev.pname final.version
-          "sha256-6rnEbiK2axYTX5oF7Gig6ih9kGC4TRDe+qosqtFYq1I=";
-    }
-  );
-  s6-dns = pkgs.s6-dns.overrideAttrs (
-    final: prev: {
-      version = "2.4.1.3";
-      src =
-        fetchSkarnetUrl prev.pname final.version
-          "sha256-+enetGSMVQeoSFVINkvRxW2r2jlLye4tfxy7FqA2zXY=";
-    }
-  );
-  s6-linux-init = pkgs.s6-linux-init.overrideAttrs (
-    final: prev: {
-      version = "1.2.0.2";
-      src =
-        fetchSkarnetUrl prev.pname final.version
-          "sha256-b60BTaFiwMgZJBl8V9FuGnXBM7NKIOQjQxobdB6Qex0=";
-    }
-  );
-  s6-linux-utils = pkgs.s6-linux-utils.overrideAttrs (
-    final: prev: {
-      version = "2.6.4.1";
-      src =
-        fetchSkarnetUrl prev.pname final.version
-          "sha256-FuGltaK0qYZ0tKlxlhKtt5WI48IMQIM2AnjqOPLTISk=";
-    }
-  );
-  s6-networking = pkgs.s6-networking.overrideAttrs (
-    final: prev: {
-      version = "2.8.0.1";
-      src =
-        fetchSkarnetUrl prev.pname final.version
-          "sha256-bwEcM7oFhs5Y/u4M+FSgsIfpCC/b0kq7eGFIRjgw80E=";
-    }
-  );
-  s6-portable-utils = pkgs.s6-portable-utils.overrideAttrs (
-    final: prev: {
-      version = "2.3.1.2";
-      src =
-        fetchSkarnetUrl prev.pname final.version
-          "sha256-z7kBhtDA6yBOHlxvk3nplBPFRrzPOLtudhd/gjcao6o=";
-    }
-  );
-  s6-rc = pkgs.s6-rc.overrideAttrs (
-    final: prev: {
-      version = "0.7.0.0";
-      src =
-        fetchSkarnetUrl prev.pname final.version
-          "sha256-v1uM4NpaTucNZCuBi2HZkWp6m2SkV1lfOIET5UoYhog=";
-    }
-  );
-  skalibs = pkgs.skalibs.overrideAttrs (
-    final: prev: {
-      version = "2.15.1.0";
-      src =
-        fetchSkarnetUrl prev.pname final.version
-          "sha256-+ckF50k1xv6RHH40Tj6J1fvSAUwaBGULUksVzptWNdE=";
-    }
-  );
+  execline = pkgs.callPackage ./skaware/execline {
+    fetchSkarnetUrl = lib.fetchSkarnetUrl;
+  };
+  s6 = pkgs.callPackage ./skaware/s6 {
+    fetchSkarnetUrl = lib.fetchSkarnetUrl;
+  };
+  s6-dns = pkgs.callPackage ./skaware/s6-dns {
+    fetchSkarnetUrl = lib.fetchSkarnetUrl;
+  };
+  s6-linux-init = pkgs.callPackage ./skaware/s6-linux-init {
+    fetchSkarnetUrl = lib.fetchSkarnetUrl;
+  };
+  s6-linux-utils = pkgs.callPackage ./skaware/s6-linux-utils {
+    fetchSkarnetUrl = lib.fetchSkarnetUrl;
+  };
+  s6-networking = pkgs.callPackage ./skaware/s6-networking {
+    fetchSkarnetUrl = lib.fetchSkarnetUrl;
+  };
+  s6-portable-utils = pkgs.callPackage ./skaware/s6-portable-utils {
+    fetchSkarnetUrl = lib.fetchSkarnetUrl;
+  };
+  s6-rc = pkgs.callPackage ./skaware/s6-rc {
+    fetchSkarnetUrl = lib.fetchSkarnetUrl;
+  };
+  skalibs = pkgs.callPackage ./skaware/skalibs {
+    fetchSkarnetUrl = lib.fetchSkarnetUrl;
+  };
 
   # s6-overlay packages
   s6-overlay-helpers = pkgs.callPackage ./pkgs/s6-overlay-helpers {

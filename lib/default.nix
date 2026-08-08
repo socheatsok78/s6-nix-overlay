@@ -9,6 +9,8 @@ with pkgs.lib;
   #
   # hexint = x: hexvals.${toLower x};
 
+  fetchSkarnetUrl = import ./fetchSkarnetUrl { inherit pkgs; };
+
   dockerTools = import ./dockerTools {
     inherit
       pkgs
