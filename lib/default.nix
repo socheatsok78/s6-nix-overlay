@@ -16,4 +16,7 @@ with pkgs.lib;
       s6-overlay-helpers
       ;
   };
+
+  mkLongrunService = pkgs.callPackage ./mkLongrunService { };
+  mkOneshotService = pkgs.callPackage ./mkOneshotService { };
 }
