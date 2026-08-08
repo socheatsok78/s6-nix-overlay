@@ -1,5 +1,4 @@
 {
-  lib,
   stdenv,
   dockerTools,
   s6-overlay,
@@ -9,10 +8,6 @@
   tag,
   contents ? [ ],
   config ? { },
-
-  # services is a list of longrun or oneshot services as derivations,
-  # which will be linked into /etc/s6-overlay/s6-rc.d
-  services ? [ ],
 }:
 dockerTools.buildLayeredImage {
   inherit tag;
@@ -23,9 +18,7 @@ dockerTools.buildLayeredImage {
     dockerTools.usrBinEnv
     dockerTools.caCertificates
     s6-overlay
-  ]
-  ++ contents
-  ++ services;
+  ] ++ contents;
   config = {
     Entrypoint = [ "/init" ];
   }

@@ -8,8 +8,6 @@
   tag,
   paths ? [ ],
   config ? { },
-
-  services ? [ ],
 }:
 dockerTools.buildImage {
   inherit name tag;
@@ -22,8 +20,7 @@ dockerTools.buildImage {
       dockerTools.caCertificates
       s6-overlay
     ]
-    ++ paths
-    ++ services;
+    ++ paths;
     pathsToLink = [
       "/bin"
       "/sbin"

@@ -11,8 +11,6 @@ with pkgs.lib;
       tag,
       paths ? [ ],
       config ? { },
-
-      services ? [ ],
     }:
     pkgs.callPackage ./s6-overlay.nix {
       inherit
@@ -20,7 +18,6 @@ with pkgs.lib;
         tag
         paths
         config
-        services
         ;
 
       inherit s6-overlay;
@@ -33,8 +30,6 @@ with pkgs.lib;
       tag,
       contents ? [ ],
       config ? { },
-
-      services ? [ ],
     }:
     pkgs.callPackage ./s6-overlay-layered.nix {
       inherit
@@ -42,7 +37,6 @@ with pkgs.lib;
         tag
         contents
         config
-        services
         ;
       inherit s6-overlay;
       s6-overlay-helpers = s6-overlay-helpers.override { withNsss = true; };
