@@ -1,5 +1,6 @@
 {
   pkgs,
+  execline,
   s6-overlay,
   s6-overlay-helpers,
 }:
@@ -9,11 +10,16 @@ with pkgs.lib;
   #
   # hexint = x: hexvals.${toLower x};
 
+  command = import ./command {
+    inherit pkgs;
+    inherit execline s6-overlay;
+  };
+
   fetchSkarnetUrl = import ./fetchSkarnetUrl { inherit pkgs; };
 
   dockerTools = import ./dockerTools {
+    inherit pkgs;
     inherit
-      pkgs
       s6-overlay
       s6-overlay-helpers
       ;

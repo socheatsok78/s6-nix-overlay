@@ -9,10 +9,13 @@ rec {
   lib = import ./lib {
     inherit
       pkgs
+      execline
       s6-overlay
       s6-overlay-helpers
       ;
   }; # functions
+
+  command = lib.command; # helpers for getting command paths for various packages
 
   # The `dockerTools` name is special
   dockerTools = lib.dockerTools;
