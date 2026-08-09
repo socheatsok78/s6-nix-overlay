@@ -22,7 +22,7 @@ group "default" {
 target "entitlements" {
   entitlements = [ "security.insecure" ]
   args = {
-    security = "insecure"
+    "security.insecure" = "true"
   }
 }
 
