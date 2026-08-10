@@ -1,3 +1,4 @@
+# syntax=socheatsok78/nixfile-frontend:experimental
 {
   description = "A very basic flake";
 
@@ -6,7 +7,8 @@
 
     # add s6-nix-overlay as an input
     s6-nix-overlay = {
-      url = "github:socheatsok78/s6-nix-overlay";
+      url = "path:../."; # <-development
+      # url = "github:socheatsok78/s6-nix-overlay";
 
       # it is not recommended to follow nixpkgs, since it can lead to unexpected breakages,
       # but if you want to follow nixpkgs, you can uncomment the following line
@@ -37,13 +39,39 @@
           };
         in
         rec {
+          myapp = pkgs.hello;
+
           # define a service
-          hello-service = s6-overlay.lib.mkLongrunService {
-              name = "hello-service";
-              run = ''
-                  #!/bin/sh
-                  ${pkgs.getExe pkgs.hello}
-              '';
+          myapp-service = s6-overlay.lib.mkLongrunService {
+            name = "myapp-service";
+            producer-for = myapp-log;
+            dependencies = [
+              "base"
+              myapp-log-prepare
+            ];
+            run = ''
+              #!/bin/sh
+              ${pkgs.lib.getExe myapp}
+            '';
+          };
+
+          # logging
+          myapp-log-prepare = s6-overlay.lib.mkOneshotService {
+            name = "myapp-log-prepare";
+            dependencies = [ "base" ];
+            up = ''
+              if { mkdir -p /var/log/myapp }
+              if { chown nobody:nogroup /var/log/myapp }
+              chmod 02755 /var/log/myapp
+            '';
+          };
+          myapp-log = s6-overlay.lib.mkLoggingService {
+            name = "myapp-log";
+            consumer-for = myapp-service;
+            run = ''
+              #!/bin/sh
+              exec logutil-service /var/log/myapp
+            '';
           };
 
           # define a layered image that includes the service and the hello package
@@ -57,7 +85,9 @@
               pkgs.dockerTools.binSh
 
               pkgs.hello
-              hello-service
+              myapp-service
+              myapp-log-prepare
+              myapp-log
             ];
           };
         }
