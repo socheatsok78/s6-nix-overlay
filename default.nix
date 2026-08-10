@@ -81,10 +81,13 @@ rec {
   s6-overlay-image = dockerTools.buildImage {
     name = "s6-overlay-image";
     tag = s6-overlay-version;
+    paths = [ pkgs.busybox ];
   };
   s6-overlay-image-layered = dockerTools.buildLayeredImage {
     name = "s6-overlay-image-layered";
     tag = s6-overlay-version;
+
+    contents = [ pkgs.busybox ];
   };
 
   # example images
