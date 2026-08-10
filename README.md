@@ -136,13 +136,13 @@ nix flake show github:socheatsok78/s6-nix-overlay
 
 The `s6-overlay-image` and `s6-overlay-image-layered` packages are just examples, use the `s6-overlay.dockerTools.buildImage` and `s6-overlay.dockerTools.buildLayeredImage` functions to build your own images.
 
-## Sample Container Images
+## Build container images using BuildKit (***EXPERIMENTAL***)
+
+There is an experimental **BuildKit** frontend that is included in this repo that allows you to build container images using **BuildKit**. The frontend is based on the [buildkit-nix/nixfile-frontend] project.
 
 There are two type of sample container images that can be built from this overlay:
 - `s6-overlay-image`: a single layer image that contains all the packages in the overlay.
 - `s6-overlay-image-layered`: a layered image that contains the all the packages in the overlay, but each package is in its own layer.
-
-> This project uses the [buildkit-nix/nixfile-frontend] to build the container images.
 
 First create a buildx builder with the following command:
 ```sh
