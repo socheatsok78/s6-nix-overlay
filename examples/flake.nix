@@ -7,8 +7,8 @@
 
     # add s6-nix-overlay as an input
     s6-nix-overlay = {
-      url = "path:../."; # <-development
-      # url = "github:socheatsok78/s6-nix-overlay";
+      # url = "path:../."; # <-development
+      url = "github:socheatsok78/s6-nix-overlay";
 
       # it is not recommended to follow nixpkgs, since it can lead to unexpected breakages,
       # but if you want to follow nixpkgs, you can uncomment the following line
@@ -75,8 +75,8 @@
           };
 
           # define a layered image that includes the service and the hello package
-          hello = s6-overlay.dockerTools.buildLayeredImage {
-            name = "hello-image";
+          myapp-image = s6-overlay.dockerTools.buildLayeredImage {
+            name = "myapp-image";
             tag = "dev";
             contents = [
               # to use the /bin/sh shell, which is not provide by default in the s6-overlay image,
@@ -84,7 +84,7 @@
               # pkgs.busybox
               pkgs.dockerTools.binSh
 
-              pkgs.hello
+              myapp
               myapp-service
               myapp-log-prepare
               myapp-log

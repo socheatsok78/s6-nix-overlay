@@ -48,18 +48,20 @@ The `s6-nix-overlay` offer a wrapper to the `nixpkgs.dockerTools` to build `s6-o
           };
         in
         rec {
+          myapp = {};
+
           # define a service
-          hello-service = s6-overlay.lib.mkLongrunService {
-              name = "hello-service";
+          myapp-service = s6-overlay.lib.mkLongrunService {
+              name = "myapp-service";
               run = ''
                   #!/bin/sh
-                  ${pkgs.getExe pkgs.hello}
+                  ${pkgs.getExe myapp}
               '';
           };
 
-          # define a layered image that includes the service and the hello package
-          hello = s6-overlay.dockerTools.buildLayeredImage {
-            name = "hello-image";
+          # define a layered image that includes the service and the myapp package
+          myapp = s6-overlay.dockerTools.buildLayeredImage {
+            name = "myapp-image";
             tag = "dev";
             contents = [
               # to use the /bin/sh shell, which is not provide by default in the s6-overlay image,
@@ -68,7 +70,7 @@ The `s6-nix-overlay` offer a wrapper to the `nixpkgs.dockerTools` to build `s6-o
               pkgs.dockerTools.binSh
 
               pkgs.hello
-              hello-service
+              myapp-service
             ];
           };
         }
