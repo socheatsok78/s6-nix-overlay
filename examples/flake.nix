@@ -70,7 +70,7 @@
             consumer-for = myapp-service;
             run = ''
               #!/bin/sh
-              exec logutil-service /var/log/myapp
+              exec /command/logutil-service /var/log/myapp
             '';
           };
 
@@ -81,8 +81,9 @@
             contents = [
               # to use the /bin/sh shell, which is not provide by default in the s6-overlay image,
               # we need to include it explicitly or provide your own. e.g: pkgs.busybox, pkgs.bash, pkgs.zsh, etc.
-              # pkgs.busybox
-              pkgs.dockerTools.binSh
+              pkgs.busybox
+              pkgs.dockerTools.fakeNss
+              # pkgs.dockerTools.binSh
 
               myapp
               myapp-service
