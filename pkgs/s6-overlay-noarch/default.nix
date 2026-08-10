@@ -25,7 +25,9 @@ stdenv.mkDerivation rec {
   '';
 
   postBuild = ''
-    substituteInPlace output/rootfs-overlay-noarch/command/* \
+    substituteInPlace output/rootfs-overlay-noarch/package/admin/s6-overlay-${version}/command/* \
+      --replace "#!/command/execlineb" "#!${lib.getExe execline}"
+    substituteInPlace output/rootfs-overlay-noarch/package/admin/s6-overlay-${version}/libexec/* \
       --replace "#!/command/execlineb" "#!${lib.getExe execline}"
   '';
 
