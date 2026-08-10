@@ -29,9 +29,102 @@ nix flake show github:socheatsok78/s6-nix-overlay
         └───skalibs: package 'skalibs-2.15.1.0'
 ```
 
-## Building the image
-> WIP
+## Usage
 
+The `s6-nix-overlay` offer a wrapper to the `nixpkgs.dockerTools` to build `s6-overlay` images. You can use it in your own flake like this:
+
+```nix
+{
+  description = "A very basic flake";
+
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+
+    # add s6-nix-overlay as an input
+    s6-nix-overlay = {
+      url = "github:socheatsok78/s6-nix-overlay";
+
+      # it is not recommended to follow nixpkgs, since it can lead to unexpected breakages,
+      # but if you want to follow nixpkgs, you can uncomment the following line
+      # inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
+
+  outputs =
+    {
+      self,
+      nixpkgs,
+      s6-nix-overlay,
+    }:
+    let
+      forAllSystems = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed;
+    in
+    {
+      packages = forAllSystems (
+        system:
+        let
+          pkgs = import nixpkgs { inherit system; };
+
+          # import s6-nix-overlay and use its pinned version of nixpkgs
+          s6-overlay = import s6-nix-overlay {
+            # instead of using nixpkgs from your flake,
+            # we use the one from s6-nix-overlay, which is pinned to a specific version of nixpkgs
+            pkgs = import s6-nix-overlay.nixpkgs { inherit system; };
+          };
+        in
+        rec {
+          # define a service
+          hello-service = s6-overlay.lib.mkLongrunService {
+              name = "hello-service";
+              run = ''
+                  #!/bin/sh
+                  echo "Hello, World!"
+              '';
+          };
+
+          # define a layered image that includes the service and the hello package
+          hello = s6-overlay.dockerTools.buildLayeredImage {
+            name = "hello-image";
+            tag = "dev";
+            contents = [
+              pkgs.hello
+              hello-service
+            ];
+          };
+        }
+      );
+    };
+}
+```
+
+Currently the following function are available:
+- `s6-overlay.dockerTools.buildImage`: builds a single layer image with all the packages in the overlay.
+- `s6-overlay.dockerTools.buildLayeredImage`: builds a layered image with each package in its own layer.
+
+### Define a service
+
+There are two types of service, a `longrun` and `oneshot` service. Services are just derivations.
+
+Use the following function to define a service:
+
+```nix
+# longrun
+s6-overlay.lib.mkLongrunService {
+    name = "hello-service";
+    run = ''
+        #!/bin/sh
+        echo "Hello, World!"
+    '';
+};
+
+# oneshot
+s6-overlay.lib.mkOneshotService {
+    name = "hello-service";
+    up = "<path-to-up-script>";
+};
+```
+
+See [`s6-overlay.lib.mkLongrunService`](lib/mkLongrunService/default.nix) & [`s6-overlay.lib.mkOneshotService`](lib/mkOneshotService/default.nix) for more details.
 
 ## Sample Container Images
 
