@@ -21,7 +21,8 @@ with pkgs.lib;
         ;
 
       inherit s6-overlay;
-      s6-overlay-helpers = s6-overlay-helpers.override { withNsss = true; };
+      inherit s6-overlay-helpers;
+      # s6-overlay-helpers = s6-overlay-helpers.override { withNsss = true; };
     };
 
   buildLayeredImage =
@@ -39,6 +40,7 @@ with pkgs.lib;
         config
         ;
       inherit s6-overlay;
-      s6-overlay-helpers = s6-overlay-helpers.override { withNsss = true; };
+      inherit s6-overlay-helpers;
+      # s6-overlay-helpers = s6-overlay-helpers.override { withNsss = true; };
     };
 }
