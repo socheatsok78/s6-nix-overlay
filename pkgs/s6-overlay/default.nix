@@ -19,7 +19,7 @@
   s6,
   skalibs,
 }:
-symlinkJoin {
+symlinkJoin rec {
   pname = "s6-overlay";
   version = s6-overlay-version;
 
@@ -42,6 +42,7 @@ symlinkJoin {
   meta = {
     description = "s6 overlay for containers (includes execline, s6-linux-utils & a custom init)";
     homepage = "https://github.com/just-containers/s6-overlay/";
+    changelog = "https://github.com/just-containers/s6-overlay/releases/tag/v${version}";
     platforms = lib.platforms.linux;
     maintainers = [ ];
     license = lib.licenses.isc;
