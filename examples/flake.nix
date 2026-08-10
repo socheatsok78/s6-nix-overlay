@@ -42,7 +42,7 @@
           myapp = pkgs.hello;
 
           # define a service
-          myapp-service = s6-overlay.lib.mkLongrunService {
+          myapp-service = s6-overlay.lib.mkService {
             name = "myapp";
             producer-for = myapp-log;
             dependencies = [
