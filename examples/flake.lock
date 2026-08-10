@@ -43,11 +43,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1786358206,
-        "narHash": "sha256-MfGmpZKB7g2JNZbn8115Q1f92CZbz9Gf9uxFpW1hxdQ=",
+        "lastModified": 1786358692,
+        "narHash": "sha256-EpkubZDU5nuL9mSsuazeLM3OwZaOiGgH9X1O+P8bMD8=",
         "owner": "socheatsok78",
         "repo": "s6-nix-overlay",
-        "rev": "093889a965e5ce9b41ceed32cfbf5223408aa594",
+        "rev": "69731fba909e5d44948deab35c1734d548e14893",
         "type": "github"
       },
       "original": {

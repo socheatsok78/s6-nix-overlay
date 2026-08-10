@@ -43,7 +43,7 @@
 
           # define a service
           myapp-service = s6-overlay.lib.mkLongrunService {
-            name = "myapp-service";
+            name = "myapp";
             producer-for = myapp-log;
             dependencies = [
               "base"
@@ -57,7 +57,7 @@
 
           # logging
           myapp-log-prepare = s6-overlay.lib.mkOneshotService {
-            name = "myapp-log-prepare";
+            name = "myapp-prepare";
             dependencies = [ "base" ];
             up = ''
               if { mkdir -p /var/log/myapp }
@@ -66,7 +66,7 @@
             '';
           };
           myapp-log = s6-overlay.lib.mkLogConsumer {
-            name = "myapp-log";
+            name = "myapp";
             dependencies = [ "base" ];
             consumer-for = myapp-service;
             run = ''
@@ -91,6 +91,9 @@
               myapp-log-prepare
               myapp-log
             ];
+            config = {
+              Cmd = ["sleep" "infinity"];
+            };
           };
         }
       );
