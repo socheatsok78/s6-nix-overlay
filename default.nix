@@ -86,7 +86,6 @@ rec {
   s6-overlay-image-layered = dockerTools.buildLayeredImage {
     name = "s6-overlay-image-layered";
     tag = s6-overlay-version;
-
     contents = [ pkgs.busybox ];
   };
 
