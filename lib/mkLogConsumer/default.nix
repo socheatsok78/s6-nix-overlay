@@ -19,7 +19,7 @@ let
   deps = lib.map (dep: if lib.isDerivation dep then dep.name else dep) dependencies;
   consumer = if lib.isDerivation consumer-for then consumer-for.name else consumer-for;
 in
-runCommand "${name}-s6-logging-svc"
+runCommand "s6-${name}-log-consumer-svc"
   {
     dependencies = deps;
 
@@ -29,7 +29,7 @@ runCommand "${name}-s6-logging-svc"
   }
   ''
     pipeline_name="${pipeline}"
-    svc_name="${name}-s6-logging-svc"
+    svc_name="s6-${name}-log-consumer-svc"
     svc_dir="$out/etc/s6-overlay/s6-rc.d/$svc_name"
     user_bundle_dir="$out/etc/s6-overlay/user-bundles.d/${user-bundle}/contents.d"
 

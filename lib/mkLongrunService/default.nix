@@ -18,13 +18,13 @@ let
   deps = lib.map (dep: if lib.isDerivation dep then dep.name else dep) dependencies;
   producer = if lib.isDerivation producer-for then producer-for.name else producer-for;
 in
-runCommand "${name}-s6-longrun-svc"
+runCommand "s6-${name}-svc"
   {
     dependencies = deps;
     producer-for = producer;
   }
   ''
-    svc_name="${name}-s6-longrun-svc"
+    svc_name="s6-${name}-svc"
     svc_dir="$out/etc/s6-overlay/s6-rc.d/$svc_name"
     user_bundle_dir="$out/etc/s6-overlay/user-bundles.d/${user-bundle}/contents.d"
 

@@ -10,8 +10,8 @@
 
   user-bundle ? "user",
 }:
-runCommand "${name}-s6-oneshot-svc" { } ''
-  svc_name="${name}-s6-oneshot-svc"
+runCommand "s6-${name}-oneshot" { } ''
+  svc_name="s6-${name}-oneshot"
   svc_dir="$out/etc/s6-overlay/s6-rc.d/$svc_name"
   user_bundle_dir="$out/etc/s6-overlay/user-bundles.d/${user-bundle}/contents.d"
 
