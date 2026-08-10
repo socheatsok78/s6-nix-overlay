@@ -28,4 +28,7 @@ with pkgs.lib;
   mkLogConsumer = pkgs.callPackage ./mkLogConsumer { };
   mkLongrunService = pkgs.callPackage ./mkLongrunService { };
   mkOneshotService = pkgs.callPackage ./mkOneshotService { };
+
+  # mkService is an alias for mkLongrunService
+  mkService = mkLongrunService;
 }
