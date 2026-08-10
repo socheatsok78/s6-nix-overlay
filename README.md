@@ -51,11 +51,11 @@ The `s6-nix-overlay` offer a wrapper to the `nixpkgs.dockerTools` to build `s6-o
           myapp = {};
 
           # define a service
-          myapp-service = s6-overlay.lib.mkLongrunService {
+          myapp-service = s6-overlay.lib.mkService {
               name = "myapp-service";
               run = ''
-                  #!/bin/sh
-                  ${pkgs.getExe myapp}
+                #!/bin/sh
+                ${pkgs.getExe myapp}
               '';
           };
 
@@ -94,7 +94,7 @@ Use the following function to define a service:
 
 ```nix
 # longrun
-s6-overlay.lib.mkLongrunService {
+s6-overlay.lib.mkService {
     name = "hello-service";
     run = ''
         #!/bin/sh
@@ -109,7 +109,7 @@ s6-overlay.lib.mkOneshotService {
 };
 ```
 
-See [`s6-overlay.lib.mkLongrunService`](lib/mkLongrunService/default.nix) & [`s6-overlay.lib.mkOneshotService`](lib/mkOneshotService/default.nix) for more details.
+See [`s6-overlay.lib.mkService`](lib/mkLongrunService/default.nix) & [`s6-overlay.lib.mkOneshotService`](lib/mkOneshotService/default.nix) for more details.
 
 ## s6-overlay packages
 
