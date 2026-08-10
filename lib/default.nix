@@ -26,5 +26,6 @@ with pkgs.lib;
   };
 
   mkLongrunService = pkgs.callPackage ./mkLongrunService { };
+  mkLoggingService = pkgs.callPackage ./mkLoggingService { };
   mkOneshotService = pkgs.callPackage ./mkOneshotService { };
 }
