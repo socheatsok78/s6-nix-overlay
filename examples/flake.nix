@@ -61,16 +61,17 @@
             dependencies = [ "base" ];
             up = ''
               if { mkdir -p /var/log/myapp }
-              if { chown nobody:nogroup /var/log/myapp }
+              if { chown nobody:nobody /var/log/myapp }
               chmod 02755 /var/log/myapp
             '';
           };
           myapp-log = s6-overlay.lib.mkLoggingService {
             name = "myapp-log";
+            dependencies = [ "base" ];
             consumer-for = myapp-service;
             run = ''
               #!/bin/sh
-              exec /command/logutil-service /var/log/myapp
+              exec ${s6-overlay.command.logutil-service} /var/log/myapp
             '';
           };
 
