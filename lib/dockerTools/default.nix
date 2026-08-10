@@ -12,7 +12,7 @@ with pkgs.lib;
       paths ? [ ],
       config ? { },
     }:
-    pkgs.callPackage ./s6-overlay.nix {
+    pkgs.callPackage ./buildImage.nix {
       inherit
         name
         tag
@@ -31,7 +31,7 @@ with pkgs.lib;
       contents ? [ ],
       config ? { },
     }:
-    pkgs.callPackage ./s6-overlay-layered.nix {
+    pkgs.callPackage ./buildLayeredImage.nix {
       inherit
         name
         tag
