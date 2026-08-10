@@ -1,5 +1,7 @@
 {
-  pkgs ? import <nixpkgs> { },
+  nixpkgs ? <nixpkgs>,
+  system ? builtins.currentSystem,
+  pkgs ? import nixpkgs { inherit system; },
 }:
 let
   s6-overlay-version = import ./version.nix;
