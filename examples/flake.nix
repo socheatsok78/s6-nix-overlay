@@ -92,7 +92,10 @@
               myapp-log
             ];
             config = {
-              Cmd = ["sleep" "infinity"];
+              Cmd = [
+                "sleep"
+                "infinity"
+              ];
             };
           };
         }
