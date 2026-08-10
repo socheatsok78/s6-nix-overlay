@@ -29,15 +29,17 @@ nix flake show github:socheatsok78/s6-nix-overlay
         └───skalibs: package 'skalibs-2.15.1.0'
 ```
 
-## Container Images
+## Building the image
+> WIP
 
-There are two type of container images that can be built from this overlay:
+
+## Sample Container Images
+
+There are two type of sample container images that can be built from this overlay:
 - `s6-overlay-image`: a single layer image that contains all the packages in the overlay.
 - `s6-overlay-image-layered`: a layered image that contains the all the packages in the overlay, but each package is in its own layer.
 
-## Building the image
-
-This project uses the [buildkit-nix/nixfile-frontend] to build the container images.
+> This project uses the [buildkit-nix/nixfile-frontend] to build the container images.
 
 First create a buildx builder with the following command:
 ```sh
@@ -54,7 +56,6 @@ docker buildx --builder "nix-builder" bake https://github.com/socheatsok78/s6-ni
 Where `<target>` is either `s6-overlay-image` or `s6-overlay-image-layered`.
 
 By default, the images will be built for both the `linux/amd64` and `linux/arm64` platforms. You can build for your local platform only by specifying the `--set="*.platform="` option.
-
 
 ## License
 This project is licensed under the ISC License- see the [LICENSE] file for details.
