@@ -65,7 +65,7 @@
               chmod 02755 /var/log/myapp
             '';
           };
-          myapp-log = s6-overlay.lib.mkLoggingService {
+          myapp-log = s6-overlay.lib.mkLogConsumer {
             name = "myapp-log";
             dependencies = [ "base" ];
             consumer-for = myapp-service;
