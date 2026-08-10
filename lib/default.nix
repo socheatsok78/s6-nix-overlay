@@ -4,8 +4,7 @@
   s6-overlay,
   s6-overlay-helpers,
 }:
-with pkgs.lib;
-{
+rec {
   # Add your library functions here
   #
   # hexint = x: hexvals.${toLower x};
