@@ -55,7 +55,7 @@ rec {
     inherit execline skalibs;
   };
   s6-overlay-noarch = pkgs.callPackage ./pkgs/s6-overlay-noarch {
-    inherit s6-overlay-version;
+    inherit execline s6-overlay-version;
   };
   s6-overlay = pkgs.callPackage ./pkgs/s6-overlay {
     inherit

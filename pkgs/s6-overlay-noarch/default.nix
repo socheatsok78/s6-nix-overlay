@@ -4,6 +4,7 @@
   lib,
   stdenv,
   fetchFromGitHub,
+  execline,
   s6-overlay-version,
 }:
 stdenv.mkDerivation rec {
@@ -21,6 +22,11 @@ stdenv.mkDerivation rec {
     runHook preBuild
     make rootfs-overlay-noarch
     runHook postBuild
+  '';
+
+  postBuild = ''
+    substituteInPlace output/rootfs-overlay-noarch/command/* \
+      --replace "#!/command/execlineb" "#!${lib.getExe execline}"
   '';
 
   installPhase = ''
