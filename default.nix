@@ -90,16 +90,4 @@ rec {
     tag = s6-overlay-version;
     contents = [ pkgs.busybox ];
   };
-
-  # example images
-  hello-image = pkgs.callPackage ./examples/hello-image {
-    inherit execline dockerTools;
-    mkLongrunService = lib.mkLongrunService;
-    mkOneshotService = lib.mkOneshotService;
-  };
-  hello-image-layered = pkgs.callPackage ./examples/hello-image-layered {
-    inherit execline dockerTools;
-    mkLongrunService = lib.mkLongrunService;
-    mkOneshotService = lib.mkOneshotService;
-  };
 }

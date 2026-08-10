@@ -78,7 +78,7 @@ The `s6-nix-overlay` offer a wrapper to the `nixpkgs.dockerTools` to build `s6-o
               name = "hello-service";
               run = ''
                   #!/bin/sh
-                  echo "Hello, World!"
+                  ${pkgs.getExe pkgs.hello}
               '';
           };
 
@@ -87,6 +87,11 @@ The `s6-nix-overlay` offer a wrapper to the `nixpkgs.dockerTools` to build `s6-o
             name = "hello-image";
             tag = "dev";
             contents = [
+              # to use the /bin/sh shell, which is not provide by default in the s6-overlay image,
+              # we need to include it explicitly or provide your own. e.g: pkgs.busybox, pkgs.bash, pkgs.zsh, etc.
+              # pkgs.busybox
+              pkgs.dockerTools.binSh
+
               pkgs.hello
               hello-service
             ];
@@ -100,6 +105,9 @@ The `s6-nix-overlay` offer a wrapper to the `nixpkgs.dockerTools` to build `s6-o
 Currently the following function are available:
 - `s6-overlay.dockerTools.buildImage`: builds a single layer image with all the packages in the overlay.
 - `s6-overlay.dockerTools.buildLayeredImage`: builds a layered image with each package in its own layer.
+
+> [!NOTE]
+> Please refer to [nixpkgs manual for `pkgs.dockerTools`](https://nixos.org/manual/nixpkgs/stable/#sec-pkgs-dockerTools) for more details.
 
 ### Define a service
 
