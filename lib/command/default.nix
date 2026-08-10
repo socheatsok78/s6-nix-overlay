@@ -6,6 +6,7 @@
 {
   # execlineb
   execline = "${pkgs.lib.getExe execline}";
+  execlineb = "${pkgs.lib.getExe execline}";
 
   # s6-overlay
   logutil-newfifo = "${s6-overlay}/command/logutil-newfifo";
