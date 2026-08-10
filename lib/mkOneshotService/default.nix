@@ -4,7 +4,6 @@
 }:
 {
   name,
-  services ? [ ],
   dependencies ? [ ],
   up,
   down ? null,
