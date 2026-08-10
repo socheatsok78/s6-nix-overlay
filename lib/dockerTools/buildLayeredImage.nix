@@ -15,7 +15,8 @@ dockerTools.buildLayeredImage {
 
   contents = [
     s6-overlay
-  ] ++ contents;
+  ]
+  ++ contents;
   config = {
     Entrypoint = [ "/init" ];
   }
