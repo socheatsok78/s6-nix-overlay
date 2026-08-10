@@ -35,5 +35,7 @@
       # nix fmt (experimental)
       formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.nixfmt-tree);
 
+      # nixpkgs
+      nixpkgs = nixpkgs;
     };
 }
