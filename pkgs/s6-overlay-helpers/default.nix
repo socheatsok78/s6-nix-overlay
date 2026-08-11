@@ -19,8 +19,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-aZd+U8cPwQ0bn9FuhTvlomtEnsi6wkSSUb34B9qcww8=";
   };
 
-  # Because of security reasons, it is not possible to have setuid binaries
-  # in nix store, therefore we have to modify the script
+  # It is not possible to have setuid binaries in nix store for security reasons,
+  # so we need to change the mode of s6-overlay-suexec to 0755 instead of 04755.
   postPatch = ''
     sed -i 's/^s6-overlay-suexec\t04755/s6-overlay-suexec\t0755/' package/modes
   '';
