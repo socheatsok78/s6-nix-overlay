@@ -23,7 +23,7 @@
 
       legacyPackages = forAllSystems (
         system:
-        import ./default.nix {
+        import ./packages.nix {
           pkgs = import nixpkgs { inherit system; };
         }
       );
