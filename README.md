@@ -39,13 +39,7 @@ The `s6-nix-overlay` offer a wrapper to the `nixpkgs.dockerTools` to build `s6-o
         system:
         let
           pkgs = import nixpkgs { inherit system; };
-
-          # import s6-nix-overlay and use its pinned version of nixpkgs
-          s6-overlay = import s6-nix-overlay {
-            # instead of using nixpkgs from your flake,
-            # we use the one from s6-nix-overlay, which is pinned to a specific version of nixpkgs
-            pkgs = import s6-nix-overlay.nixpkgs { inherit system; };
-          };
+          s6-overlay = s6-nix-overlay.legacyPackages.${system};
         in
         rec {
           myapp = {};
