@@ -24,7 +24,7 @@
       legacyPackages = forAllSystems (
         system:
         import ./packages.nix {
-          pkgs = import nixpkgs { inherit system; };
+          pkgs = nixpkgs.legacyPackages.${system};
         }
       );
 

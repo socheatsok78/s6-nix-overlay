@@ -38,7 +38,7 @@ The `s6-nix-overlay` offer a wrapper to the `nixpkgs.dockerTools` to build `s6-o
       packages = forAllSystems (
         system:
         let
-          pkgs = import nixpkgs { inherit system; };
+          pkgs = nixpkgs.legacyPackages.${system};
           s6-overlay = s6-nix-overlay.legacyPackages.${system};
         in
         rec {
