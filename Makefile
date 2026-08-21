@@ -9,3 +9,5 @@ s6-overlay-image:
 s6-overlay-image-layered:
 	docker buildx bake $(@) --print
 	docker buildx bake $(@) $(buildxflags)
+update:
+	nix flake update --commit-lock-file
