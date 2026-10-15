@@ -40,7 +40,7 @@ runCommand "s6-${name}-svc"
     ${lib.optionalString (deps != [ ]) ''
       mkdir -p $svc_dir/dependencies.d
       ${lib.concatMapStrings (dep: ''
-        touch $svc_dir/dependencies.d/${dep.name}
+        touch $svc_dir/dependencies.d/${dep}
       '') deps}
     ''}
 

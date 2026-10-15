@@ -27,7 +27,7 @@ runCommand "s6-${name}-oneshot" { } ''
   ${lib.optionalString (dependencies != [ ]) ''
     mkdir -p $svc_dir/dependencies.d
     ${lib.concatMapStrings (dep: ''
-      touch $svc_dir/dependencies.d/${dep.name}
+      touch $svc_dir/dependencies.d/${dep}
     '') dependencies}
   ''}
 
