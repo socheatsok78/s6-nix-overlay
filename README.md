@@ -54,7 +54,7 @@ The `s6-nix-overlay` offer a wrapper to the `nixpkgs.dockerTools` to build `s6-o
           };
 
           # define a layered image that includes the service and the myapp package
-          myapp = s6-overlay.dockerTools.buildLayeredImage {
+          myapp-image = s6-overlay.dockerTools.buildLayeredImage {
             name = "myapp-image";
             tag = "dev";
             contents = [

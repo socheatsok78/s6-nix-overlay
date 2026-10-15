@@ -45,7 +45,7 @@ runCommand "s6-${name}-log-consumer-svc"
     ${lib.optionalString (deps != [ ]) ''
       mkdir -p $svc_dir/dependencies.d
       ${lib.concatMapStrings (dep: ''
-        touch $svc_dir/dependencies.d/${dep}
+        touch $svc_dir/dependencies.d/${dep.name}
       '') deps}
     ''}
 
